@@ -1,25 +1,23 @@
 const fs = require('fs');
+const { Form } = require('./formDetails');
 
 const updateForm = (formDetails) => {
-  const name = formDetails[0];
-  const DOB = formDetails[1];
-  const hobbies = formDetails[2].split(',');
-  const formatedFormInfos = { name, DOB, hobbies };
-  fs.writeFileSync('.fromData.json', JSON.stringify(formatedFormInfos), 'utf8');
+  fs.writeFileSync('.fromData.json', JSON.stringify(formDetails), 'utf8');
 }
+
 const createForm = (queries) => {
+  const events = ['addName', 'addDOB', 'addHobbies']
   let index = 0;
-  let formDetails = [];
-  console.log(queries[index]);
+  let formDetails = new Form(queries);
+  console.log(formDetails.showQuestion(index));
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', (chunk) => {
     const informatio = chunk.split('\n');
     const info = informatio[0];
-    formDetails.push(info);
-    index++;
-    console.log(queries[index]);
+    index = formDetails[events[index]](info, index);
+    console.log(formDetails.showQuestion(index));
     if (index >= queries.length) {
-      updateForm(formDetails);
+      updateForm(formDetails.formDetails);
       console.log('Thank you');
       process.exit();
     }
