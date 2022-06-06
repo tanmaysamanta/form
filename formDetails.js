@@ -38,6 +38,11 @@ class Form {
     }
     return queryNo;
   }
+
+  addAddress(address, queryNo) {
+    this.formDetails.address = address;
+    return ++queryNo;
+  }
 }
 
 exports.Form = Form;

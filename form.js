@@ -7,7 +7,7 @@ const updateForm = (formDetails) => {
 
 const createForm = (queries) => {
   let form = new Form(queries);
-  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo']
+  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo', 'addAddress']
 
   process.stdin.setEncoding('utf8');
 
@@ -28,10 +28,11 @@ const createForm = (queries) => {
 
 const main = () => {
   const queries = [
-    'Please enter your name',
-    'Please enter your DOB',
-    'Please enter your hobbies',
-    'Please enter your phone number'
+    'Please enter your name :',
+    'Please enter your DOB :',
+    'Please enter your hobbies :',
+    'Please enter your phone number :',
+    'Please enter your address :'
   ];
   createForm(queries);
 };
