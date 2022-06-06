@@ -40,7 +40,9 @@ class Form {
   }
 
   addAddress(address, queryNo) {
-    this.formDetails.address = address;
+    let fullAddress = this.formDetails.address ? this.formDetails.address : '';
+    fullAddress = fullAddress.concat(address);
+    this.formDetails.address = fullAddress;
     return ++queryNo;
   }
 }

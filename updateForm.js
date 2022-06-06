@@ -7,7 +7,7 @@ const updateForm = (formDetails) => {
 
 const createForm = (queries) => {
   let form = new Form(queries);
-  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo', 'addAddress']
+  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo', 'addAddress', 'addAddress'];
 
   process.stdin.setEncoding('utf8');
 
@@ -17,12 +17,12 @@ const createForm = (queries) => {
     const informatio = chunk.split('\n');
     const info = informatio[0];
     index = form[events[index]](info, index);
-    console.log(form.showQuestion(index));
     if (index >= queries.length) {
       updateForm(form.formDetails);
       console.log('Thank you');
       process.exit();
     }
+    console.log(form.showQuestion(index));
   });
 };
 
@@ -32,7 +32,8 @@ const main = () => {
     'Please enter your DOB :',
     'Please enter your hobbies :',
     'Please enter your phone number :',
-    'Please enter your address :'
+    'Please enter your address line 1 :',
+    'Please enter your address line 2 :'
   ];
   createForm(queries);
 };
