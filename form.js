@@ -1,5 +1,20 @@
 // const { EventEmitter } = require('events');
 
+class Form {
+  constructor(queries) {
+    this.queries = queries;
+    this.formDetails = {};
+  }
+
+  showQuestion(queryNo) {
+    return this.queries[queryNo];
+  }
+
+  addInfo(query, answer) {
+    this.formDetails[query] = answer;
+  }
+
+}
 
 const updateInfo = (form, question, info) => {
   const questionDetails = question.split(' ');
