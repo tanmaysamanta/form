@@ -30,6 +30,14 @@ class Form {
     }
     return queryNo;
   }
+
+  addPhNo(phNo, queryNo) {
+    if (phNo.length === 10 && isFinite(phNo)) {
+      this.formDetails.phNo = phNo;
+      queryNo++;
+    }
+    return queryNo;
+  }
 }
 
 exports.Form = Form;
