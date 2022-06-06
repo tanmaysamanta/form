@@ -1,45 +1,39 @@
-// const { EventEmitter } = require('events');
+const fs = require('fs');
 
-class Form {
-  constructor(queries) {
-    this.queries = queries;
-    this.formDetails = {};
-  }
-
-  showQuestion(queryNo) {
-    return this.queries[queryNo];
-  }
-
-  addInfo(query, answer) {
-    this.formDetails[query] = answer;
-  }
-
+const updateForm = (formDetails) => {
+  const name = formDetails[0];
+  const DOB = formDetails[1];
+  const hobbies = formDetails[2].split(',');
+  const formatedFormInfos = { name, DOB, hobbies };
+  fs.writeFileSync('.fromData.json', JSON.stringify(formatedFormInfos), 'utf8');
 }
-
-const updateInfo = (form, question, info) => {
-  const questionDetails = question.split(' ');
-  const query = questionDetails[questionDetails.length - 1];
-  form[query] = info;
-}
-
-const createForm = () => {
-  const queries = [
-    'Please enter your name:',
-    'Please enter your DOB:',
-    'Please enter your hobbies'
-  ];
+const createForm = (queries) => {
   let index = 0;
-  let form = {};
+  let formDetails = [];
+  console.log(queries[index]);
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', (chunk) => {
-    const info = chunk.trim();
-    from = updateInfo(form, queries[index], chunk);
+    const informatio = chunk.split('\n');
+    const info = informatio[0];
+    formDetails.push(info);
     index++;
+    console.log(queries[index]);
     if (index >= queries.length) {
-      console.log(form);
+      updateForm(formDetails);
+      console.log('Thank you');
       process.exit();
     }
   });
 };
 
-createForm();
+const main = () => {
+  const queries = [
+    'Please enter your name',
+    'Please enter your DOB',
+    'Please enter your hobbies'
+  ];
+  createForm(queries);
+};
+
+main();
+
