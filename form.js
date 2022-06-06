@@ -6,18 +6,20 @@ const updateForm = (formDetails) => {
 }
 
 const createForm = (queries) => {
+  let form = new Form(queries);
   const events = ['addName', 'addDOB', 'addHobbies']
-  let index = 0;
-  let formDetails = new Form(queries);
-  console.log(formDetails.showQuestion(index));
+
   process.stdin.setEncoding('utf8');
+
+  let index = 0;
+  console.log(form.showQuestion(index));
   process.stdin.on('data', (chunk) => {
     const informatio = chunk.split('\n');
     const info = informatio[0];
-    index = formDetails[events[index]](info, index);
-    console.log(formDetails.showQuestion(index));
+    index = form[events[index]](info, index);
+    console.log(form.showQuestion(index));
     if (index >= queries.length) {
-      updateForm(formDetails.formDetails);
+      updateForm(form.formDetails);
       console.log('Thank you');
       process.exit();
     }

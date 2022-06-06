@@ -10,8 +10,10 @@ class Form {
 
   addName(name, queryNo) {
     if (name.length >= 5) {
-      this.formDetails.name = name;
-      queryNo++;
+      if (name.split('').every(char => !isFinite(char))) {
+        this.formDetails.name = name;
+        queryNo++;
+      }
     }
     return queryNo;
   }
@@ -22,8 +24,11 @@ class Form {
   }
 
   addHobbies(hobbies, queryNo) {
-    this.formDetails.hobbies = hobbies;
-    return ++queryNo;
+    if (hobbies) {
+      this.formDetails.hobbies = hobbies.split(',');
+      queryNo++;
+    }
+    return queryNo;
   }
 }
 
