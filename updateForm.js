@@ -5,10 +5,7 @@ const updateForm = (formDetails) => {
   fs.writeFileSync('.fromData.json', JSON.stringify(formDetails), 'utf8');
 }
 
-const createForm = (queries) => {
-  let form = new Form(queries);
-  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo', 'addAddress', 'addAddress'];
-
+const createForm = (queries, events, form) => {
   process.stdin.setEncoding('utf8');
 
   let index = 0;
@@ -35,7 +32,9 @@ const main = () => {
     'Please enter your address line 1 :',
     'Please enter your address line 2 :'
   ];
-  createForm(queries);
+  let form = new Form(queries);
+  const events = ['addName', 'addDOB', 'addHobbies', 'addPhNo', 'addAddress', 'addAddress'];
+  createForm(queries, events, form);
 };
 
 main();

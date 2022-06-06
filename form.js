@@ -41,8 +41,8 @@ class Form {
 
   addAddress(address, queryNo) {
     let fullAddress = this.formDetails.address ? this.formDetails.address : '';
-    fullAddress = fullAddress.concat(address);
-    this.formDetails.address = fullAddress;
+    fullAddress = fullAddress.concat(`\n${address}`);
+    this.formDetails.address = fullAddress.trim();
     return ++queryNo;
   }
 }
