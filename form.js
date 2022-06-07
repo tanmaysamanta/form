@@ -1,11 +1,12 @@
 class Form {
+  #queries;
   constructor(queries) {
-    this.queries = queries;
+    this.#queries = queries;
     this.formDetails = {};
   }
 
   showQuestion(queryNo) {
-    return this.queries[queryNo];
+    return this.#queries[queryNo];
   }
 
   register(query, answer) {
