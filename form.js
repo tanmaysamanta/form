@@ -8,42 +8,14 @@ class Form {
     return this.queries[queryNo];
   }
 
-  addName(name, queryNo) {
-    if (name.length >= 5) {
-      if (name.split('').every(char => !isFinite(char))) {
-        this.formDetails.name = name;
-        queryNo++;
-      }
+  register(query, answer) {
+    if (query === 'Address') {
+      let fullAddress = this.formDetails[query] ? this.formDetails[query] : '';
+      fullAddress = fullAddress.concat(`\n${answer}`);
+      this.formDetails[query] = fullAddress.trim();
+      return;
     }
-    return queryNo;
-  }
-
-  addDOB(DOB, queryNo) {
-    this.formDetails.DOB = DOB;
-    return ++queryNo;
-  }
-
-  addHobbies(hobbies, queryNo) {
-    if (hobbies) {
-      this.formDetails.hobbies = hobbies.split(',');
-      queryNo++;
-    }
-    return queryNo;
-  }
-
-  addPhNo(phNo, queryNo) {
-    if (phNo.length === 10 && isFinite(phNo)) {
-      this.formDetails.phNo = phNo;
-      queryNo++;
-    }
-    return queryNo;
-  }
-
-  addAddress(address, queryNo) {
-    let fullAddress = this.formDetails.address ? this.formDetails.address : '';
-    fullAddress = fullAddress.concat(`\n${address}`);
-    this.formDetails.address = fullAddress.trim();
-    return ++queryNo;
+    this.formDetails[query] = answer;
   }
 }
 
