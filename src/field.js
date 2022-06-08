@@ -3,11 +3,13 @@ class Field {
   #promt;
   #response;
   #validator;
-  constructor(name, promt, validator, parse) {
+  #parser;
+  constructor(name, promt, validator, parser = x => x) {
     this.#name = name;
     this.#promt = promt;
     this.#response = null;
     this.#validator = validator;
+    this.#parser = parser;
   }
 
   fieldName() {
@@ -31,7 +33,7 @@ class Field {
   }
 
   getEntry() {
-    return { name: this.#name, response: this.#response }
+    return { name: this.#name, response: this.#parser(this.#response) }
   }
 }
 
