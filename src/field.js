@@ -15,7 +15,7 @@ class Field {
   }
 
   isValidFiledResponse(response) {
-    return this.#validator(response)
+    return this.#validator(response);
   }
 
   fill(response) {
@@ -28,6 +28,10 @@ class Field {
 
   isFilled() {
     return this.#response ? true : false;
+  }
+
+  getEntry() {
+    return { name: this.#name, response: this.#response }
   }
 }
 

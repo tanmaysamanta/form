@@ -1,10 +1,8 @@
 class Form {
   #fields;
-  #responses;
   #index;
   constructor(...fields) {
     this.#fields = fields;
-    this.#responses = {};
     this.#index = 0;
   }
 
@@ -17,8 +15,8 @@ class Form {
   }
 
   register(response) {
-    const key = this.#fields[this.#index].fieldName();
-    this.#responses[key] = response;
+    const field = this.#fields[this.#index];
+    field.fill(response);
     this.#index++;
   }
 
@@ -27,19 +25,24 @@ class Form {
   }
 
   getResponses() {
-    return this.#responses;
+    return this.#fields.reduce((responses, field) => {
+      const { name, response } = field.getEntry();
+      responses[name] = response;
+      return responses;
+    }, {});
   }
 }
 
-const registerResponses = (chunk, form, cb, logger) => {
+const registerResponses = (chunk, form, writeToFile, logger) => {
   const response = chunk.trim();
   if (!form.isValidResponse(response)) {
+    logger('Invalid response')
     logger(form.showCurrentPromt());
     return;
   }
   form.register(response);
   if (form.isFilled()) {
-    cb(form.getResponses());
+    writeToFile(form.getResponses());
     return;
   }
   logger(form.showCurrentPromt());

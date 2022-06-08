@@ -31,7 +31,7 @@ const createForm = () => {
 };
 
 const fillForm = (form) => {
-  const cb = (responses) => {
+  const writToFile = (responses) => {
     updateForm(responses);
     console.log('thank you');
     process.exit();
@@ -40,7 +40,7 @@ const fillForm = (form) => {
   process.stdin.setEncoding('utf8');
   console.log(form.showCurrentPromt());
   process.stdin.on('data', (chunk) => {
-    registerResponses(chunk, form, cb, console.log);
+    registerResponses(chunk, form, writToFile, console.log);
   });
 };
 
