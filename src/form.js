@@ -12,9 +12,9 @@ class Form {
     return this.#fields[this.#index].getPromt();
   }
 
-  register(answer) {
+  register(response) {
     const key = this.#fields[this.#index].fieldName();
-    this.#responses[key] = answer;
+    this.#responses[key] = response;
     this.#index++;
   }
 

@@ -38,20 +38,27 @@ const updateForm = (formDetails) => {
 //   return answer;
 // };
 
-const fillForm = (form) => {
-  process.stdin.setEncoding('utf8');
 
+const registerResponses = (chunk, form, cb) => {
+  const response = chunk.trim();
+  form.register(response);
+  if (form.isFilled()) {
+    cb(form.getResponses());
+  }
+  console.log(form.showCurrentPromt());
+};
+
+const fillForm = (form) => {
+  const cb = (responses) => {
+    updateForm(responses);
+    console.log('thank you');
+    process.exit();
+  };
+
+  process.stdin.setEncoding('utf8');
   console.log(form.showCurrentPromt());
   process.stdin.on('data', (chunk) => {
-    const response = chunk.trim();
-    form.register(response);
-    if (form.isFilled()) {
-      updateForm(form.getResponses());
-      console.log('thank you');
-      process.exit();
-    }
-
-    console.log(form.showCurrentPromt());
+    registerResponses(chunk, form, cb);
   });
 };
 
