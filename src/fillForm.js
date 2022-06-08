@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { Form, registerResponses } = require('./form.js');
 const { Field } = require('./field.js');
+const { MultiLineField } = require('./multiLineField.js');
 const { text } = require('stream/consumers');
 
 const updateForm = (formDetails) => {
@@ -20,17 +21,19 @@ const isValidDOB = (date) => {
   return result;
 };
 
-const isValidHobbies = (hobbies) => {
+const isNotEmpty = (hobbies) => {
   return hobbies !== '';
 };
 
 const comaSplit = (text) => text.split(',');
+const joinByNewLine = (lines) => lines.join('\n');
 
 const createForm = () => {
   const nameField = new Field('name', 'Enter name', isValidName);
   const dobField = new Field('dob', 'Enter dob', isValidDOB);
-  const hobbiesField = new Field('hobbies', 'Enter hobbies', isValidHobbies, comaSplit);
-  return new Form(nameField, dobField, hobbiesField);
+  const hobbiesField = new Field('hobbies', 'Enter hobbies', isNotEmpty, comaSplit);
+  const addressField = new MultiLineField('address', ['Enter address line 1', 'Enter address line 2'], isNotEmpty, joinByNewLine);
+  return new Form(nameField, dobField, hobbiesField, addressField);
 };
 
 const fillForm = (form) => {
@@ -47,4 +50,4 @@ const fillForm = (form) => {
   });
 };
 
-module.exports = { fillForm, isValidName, isValidDOB, isValidHobbies, createForm };
+module.exports = { fillForm, isValidName, isValidDOB, isNotEmpty, createForm };

@@ -17,7 +17,9 @@ class Form {
   register(response) {
     const field = this.#fields[this.#index];
     field.fill(response);
-    this.#index++;
+    if (field.isFilled()) {
+      this.#index++;
+    }
   }
 
   isFilled() {
