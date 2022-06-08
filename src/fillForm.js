@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Form } = require('./form.js');
+const { Form, registerResponses } = require('./form.js');
 const { Field } = require('./field.js');
 
 const updateForm = (formDetails) => {
@@ -38,16 +38,6 @@ const updateForm = (formDetails) => {
 //   return answer;
 // };
 
-
-const registerResponses = (chunk, form, cb) => {
-  const response = chunk.trim();
-  form.register(response);
-  if (form.isFilled()) {
-    cb(form.getResponses());
-  }
-  console.log(form.showCurrentPromt());
-};
-
 const fillForm = (form) => {
   const cb = (responses) => {
     updateForm(responses);
@@ -72,3 +62,5 @@ const main = () => {
 };
 
 main();
+
+module.exports = { registerResponses };

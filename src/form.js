@@ -27,4 +27,14 @@ class Form {
   }
 }
 
-exports.Form = Form;
+
+const registerResponses = (chunk, form, cb) => {
+  const response = chunk.trim();
+  form.register(response);
+  if (form.isFilled()) {
+    cb(form.getResponses());
+  }
+  console.log(form.showCurrentPromt());
+};
+
+module.exports = { Form, registerResponses };

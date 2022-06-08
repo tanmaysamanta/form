@@ -25,4 +25,4 @@ class Field {
   }
 }
 
-exports.Field = Field;
+module.exports = { Field };
