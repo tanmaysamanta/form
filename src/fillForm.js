@@ -2,7 +2,6 @@ const fs = require('fs');
 const { Form, registerResponses } = require('./form.js');
 const { Field } = require('./field.js');
 const { MultiLineField } = require('./multiLineField.js');
-const { text } = require('stream/consumers');
 
 const updateForm = (formDetails) => {
   fs.writeFileSync('./fromData.json', JSON.stringify(formDetails), 'utf8');
@@ -25,6 +24,10 @@ const isNotEmpty = (hobbies) => {
   return hobbies !== '';
 };
 
+const isValidPhNo = (phNo) => {
+  return phNo.match(/^\d{10}$/);
+};
+
 const comaSplit = (text) => text.split(',');
 const joinByNewLine = (lines) => lines.join('\n');
 
@@ -32,8 +35,9 @@ const createForm = () => {
   const nameField = new Field('name', 'Enter name', isValidName);
   const dobField = new Field('dob', 'Enter dob', isValidDOB);
   const hobbiesField = new Field('hobbies', 'Enter hobbies', isNotEmpty, comaSplit);
+  const phNoField = new Field('phNo', 'Enter ph Number', isValidPhNo)
   const addressField = new MultiLineField('address', ['Enter address line 1', 'Enter address line 2'], isNotEmpty, joinByNewLine);
-  return new Form(nameField, dobField, hobbiesField, addressField);
+  return new Form(nameField, dobField, hobbiesField, phNoField, addressField);
 };
 
 const fillForm = (form) => {
