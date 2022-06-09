@@ -4,7 +4,7 @@ const { Field } = require('./field.js');
 const { MultiLineField } = require('./multiLineField.js');
 
 const updateForm = (formDetails) => {
-  fs.writeFileSync('./fromData.json', JSON.stringify(formDetails), 'utf8');
+  fs.writeFileSync('./formData.json', JSON.stringify(formDetails), 'utf8');
 };
 
 const isValidChar = (name) => {
@@ -50,7 +50,10 @@ const fillForm = (form) => {
   process.stdin.setEncoding('utf8');
   console.log(form.showCurrentPromt());
   process.stdin.on('data', (chunk) => {
-    registerResponses(chunk, form, writToFile, console.log);
+    const responses = chunk.trim().split('\n');
+    responses.forEach(response => {
+      registerResponses(response, form, writToFile, console.log);
+    });
   });
 };
 
